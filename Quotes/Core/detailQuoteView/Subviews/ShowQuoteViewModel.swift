@@ -15,7 +15,7 @@ struct ShowQuoteViewModel: View {
     @State var authorInput: String = ""
     @State var showInfoSheet: Bool = false
     @State var showingQuoteSheet: Bool = false
-    @State var showDeleteAlert: Bool = false
+    @State var showDeleteAlert: Bool = true
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -66,7 +66,7 @@ struct ShowQuoteViewModel: View {
                     Spacer()
                 }
                 HStack {
-                    Text("Date: " + String(quote.date.prefix(10))).padding(.top, 10).padding(.horizontal, 20)
+                    Text("Date: " + convertDate(date: quote.date)).padding(.top, 10).padding(.horizontal, 20)
                     Spacer()
                 }
                 Spacer()
@@ -101,6 +101,11 @@ struct ShowQuoteViewModel: View {
         }
                             
         )
+    }
+    func convertDate(date: String) -> String {
+        let newDate = String(date.prefix(10))
+        let dateArray = newDate.components(separatedBy: "-")
+        return "\(dateArray[2]).\(dateArray[1]).\(dateArray[0])"
     }
 }
 

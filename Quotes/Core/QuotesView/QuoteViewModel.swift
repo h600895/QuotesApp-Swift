@@ -48,6 +48,7 @@ struct QuoteViewModel: View {
                         
                         HStack {
                             Text("Quotes")
+                                .foregroundColor(Color("logoColor"))
                                 .font(Font.title)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             

@@ -29,7 +29,7 @@ struct AddQuoteView: View {
     @State private var dateInputField = Date()
     @State private var isAlertShowing = false
     
-    let username: String = ""
+    let uid: String = ""
     
     /*if (viewModel.user?.displayName != nil) {
         username = viewModel.user!.displayName

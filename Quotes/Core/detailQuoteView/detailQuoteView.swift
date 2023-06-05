@@ -19,6 +19,7 @@ struct ShowQuoteView: View {
     @State var authorInput: String = ""
     @State var showInfoSheet: Bool = false
     @State var showingQuoteSheet: Bool = false
+    @State var ownsQuote: Bool = false //Er det currentUser som har skrvet quoten
     
     
     var databaseReferance: DatabaseService
@@ -45,6 +46,7 @@ struct ShowQuoteView: View {
                         .padding(.all, 20)
                     
                     Text(quote.author).font(.system(size: 20))
+                    Text(String(quote.date.prefix(10))).padding(.top, 10).padding(.horizontal, 20)
                     
                     Spacer()
                     
@@ -63,7 +65,7 @@ struct ShowQuoteView: View {
             
             
         }.sheet(isPresented: $showInfoSheet) {
-            VStack{
+            VStack {
                 HStack {
                     Text("Information").font(.system(size: 28).bold()).padding(.top, 10).padding(.horizontal, 20)
                     Spacer()
@@ -97,10 +99,12 @@ struct ShowQuoteView: View {
                         )}
                     .foregroundColor(Color.white)
                     .padding()
-                    .background(Color.red)
+                    .background(ownsQuote ? Color.red : Color.gray)
                     .cornerRadius(10)
                     
+                    
                 }
+                .disabled(!ownsQuote) //currentUser.uid != quote.writer, i tilegg må dette endre farge på knappen!
                 
                 
             }
