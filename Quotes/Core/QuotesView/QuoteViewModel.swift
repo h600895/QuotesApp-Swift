@@ -27,8 +27,6 @@ struct QuoteViewModel: View {
     var body: some View {
         
         
-        
-        /*let quotes = [getQuote(), getQuote(), getQuote(), getQuote(), getQuote(), getQuote(), getQuote()]*/
         let backgroundColor = Color("backgroundColor").ignoresSafeArea()
         NavigationView() {
             

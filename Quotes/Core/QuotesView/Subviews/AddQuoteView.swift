@@ -10,7 +10,7 @@ import SwiftUI
 @MainActor
 final class AddQuoteViewModel: ObservableObject {
     
-    @Published private(set) var user: AuthDataResultModel? = nil
+    @Published private(set) var user: DBUser? = nil
     
     func loadCurrentUser() throws {
         self.user = try AuthenticationManager.shared.getAuthenticatedUser()
@@ -21,7 +21,6 @@ struct AddQuoteView: View {
     
     var db: DatabaseService
     @StateObject private var viewModel = AddQuoteViewModel()
-    //@Binding var newQuoteSheet: Bool
     @Binding var newQuoteSheet: Bool
     
     @State var quoteInputField = ""
@@ -75,8 +74,8 @@ struct AddQuoteView: View {
     }
 }
 
-/*struct AddQuoteView_Previews: PreviewProvider {
+struct AddQuoteView_Previews: PreviewProvider {
     static var previews: some View {
-        AddQuoteView(db: DatabaseService())
+        AddQuoteView(db: DatabaseService(), newQuoteSheet: .constant(false))
     }
-}*/
+}

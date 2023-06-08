@@ -19,7 +19,7 @@ struct ShowQuoteView: View {
     @State var authorInput: String = ""
     @State var showInfoSheet: Bool = false
     @State var showingQuoteSheet: Bool = false
-    @State var ownsQuote: Bool = false //Er det currentUser som har skrvet quoten
+    @State var ownsQuote: Bool = true //Er det currentUser som har skrvet quoten
     
     
     var databaseReferance: DatabaseService

@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseAuth
 
-struct AuthDataResultModel {
+struct DBUser {
     let uid: String
     let email: String?
     let photoUrl: String?
@@ -29,36 +29,33 @@ final class AuthenticationManager  {
     static let shared = AuthenticationManager()
     private init() {}
     
-    func getAuthenticatedUser() throws -> AuthDataResultModel {
+    func getAuthenticatedUser() throws -> DBUser {
         guard let user = Auth.auth().currentUser else {
             throw URLError(.badServerResponse)
         }
         
-        return AuthDataResultModel(user: user)
+        return DBUser(user: user)
     }
     
     func signOut() throws {
         try Auth.auth().signOut()
     }
-    
-    
-
-    
+ 
     
 }
 
 // MARK: SIGN IN EMAIL
 extension AuthenticationManager {
     
-    func createUser(email: String, password: String) async throws -> AuthDataResultModel {
+    func createUser(email: String, password: String) async throws -> DBUser {
         let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
-        return AuthDataResultModel(user: authDataResult.user)
+        return DBUser(user: authDataResult.user)
     }
     
     @discardableResult
-    func signInUser(email: String, password: String) async throws -> AuthDataResultModel {
+    func signInUser(email: String, password: String) async throws -> DBUser {
         let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
-        return AuthDataResultModel(user: authDataResult.user)
+        return DBUser(user: authDataResult.user)
     }
 }
 
@@ -66,13 +63,13 @@ extension AuthenticationManager {
 extension AuthenticationManager {
     
     @discardableResult
-    func signInWithGoogle(tokens: GoogleSignInResultModel) async throws -> AuthDataResultModel {
+    func signInWithGoogle(tokens: GoogleSignInResultModel) async throws -> DBUser {
         let credential = GoogleAuthProvider.credential(withIDToken: tokens.idToken, accessToken: tokens.accessToken)
         return try await signIn(credential: credential)
     }
     
-    func signIn(credential: AuthCredential) async throws -> AuthDataResultModel {
+    func signIn(credential: AuthCredential) async throws -> DBUser {
         let authDataResult = try await Auth.auth().signIn(with: credential)
-        return AuthDataResultModel(user: authDataResult.user)
+        return DBUser(user: authDataResult.user)
     }
 }
